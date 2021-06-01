@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ContactListAPI</name>
+    </assembly>
+    <members>
+        <member name="M:ContactListAPI.Controllers.ContactController.GetContacts">
+            <summary>
+            Get list of Contacts.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ContactListAPI.Controllers.ContactController.GetContact(System.Int32)">
+            <summary>
+            Get individual Contact
+            </summary>
+            <param name="Contactid"> The id of the Contact </param>
+            <returns></returns>
+        </member>
+        <member name="M:ContactListAPI.Controllers.ContactGroupController.GetContactGroups">
+            <summary>
+            Get list of Contact Groups.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ContactListAPI.Controllers.ContactGroupController.GetContactGroups(System.Int32)">
+            <summary>
+            Get individual national park
+            </summary>
+            <param name="ContactGroupsId"> The Id of the national Park </param>
+            <returns></returns>
+        </member>
+        <member name="M:ContactListAPI.Controllers.ContactGroupV2Controller.GetContactGroups">
+            <summary>
+            Get list of Contact Groups.
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
