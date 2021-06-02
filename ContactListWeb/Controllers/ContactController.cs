@@ -4,26 +4,41 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ContactListWeb.Models;
+using ContactListWeb.Models.ViewModel;
 using ContactListWeb.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ContactListWeb.Controllers
 {
     public class ContactController : Controller
     {
         private readonly IContacts _contactRepo;
+        private readonly IContactGroups _contactGroups;
 
-        public ContactController(IContacts contactrepo )
+        public ContactController(IContacts contactrepo, IContactGroups contactGroups )
         {
             _contactRepo = contactrepo;
+            _contactGroups = contactGroups;
         }
 
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Upsert(int? id)
         {
-            Contacts obj = new Contacts();
+            //ContactVM obj = new ContactVM();
+            IEnumerable<ContactGroups> npList = await _contactGroups.GetAllAsync(SD.ContactGroupAPIPath, HttpContext.Session.GetString("JWToken"));
+
+            ContactVM obj = new ContactVM()
+            {
+                ContactGroup = npList.Select(i => new SelectListItem
+                {
+                    Text = i.GroupName,
+                    Value = i.Groupid.ToString()
+                }),
+                Contacts = new Contacts()
+            };
 
             if (id == null)
             {
@@ -32,7 +47,7 @@ namespace ContactListWeb.Controllers
             }
 
             //Flow will come here for update
-            obj = await _contactRepo.GetAsync(SD.ContactAPIPath, id.GetValueOrDefault(), HttpContext.Session.GetString("JWToken"));
+            obj.Contacts = await _contactRepo.GetAsync(SD.ContactAPIPath, id.GetValueOrDefault(), HttpContext.Session.GetString("JWToken"));
             if (obj == null)
             {
                 return NotFound();
@@ -42,7 +57,7 @@ namespace ContactListWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Upsert(Contacts obj)
+        public async Task<IActionResult> Upsert(ContactVM obj)
         {
             if (ModelState.IsValid)
             {
@@ -58,20 +73,20 @@ namespace ContactListWeb.Controllers
                             p1 = ms1.ToArray();
                         }
                     }
-                    obj.Picture = p1;
+                    obj.Contacts.Picture = p1;
                 }
                 else
                 {
-                    var objFromDb = await _contactRepo.GetAsync(SD.ContactAPIPath, obj.Contactid, HttpContext.Session.GetString("JWToken"));
-                    obj.Picture = objFromDb.Picture;
+                    var objFromDb = await _contactRepo.GetAsync(SD.ContactAPIPath, obj.Contacts.Contactid, HttpContext.Session.GetString("JWToken"));
+                    obj.Contacts.Picture = objFromDb.Picture;
                 }
-                if (obj.Contactid == 0)
+                if (obj.Contacts.Contactid == 0)
                 {
-                    await _contactRepo.CreateAsync(SD.ContactAPIPath, obj, HttpContext.Session.GetString("JWToken"));
+                    await _contactRepo.CreateAsync(SD.ContactAPIPath, obj.Contacts, HttpContext.Session.GetString("JWToken"));
                 }
                 else
                 {
-                    await _contactRepo.UpdateAsync(SD.ContactAPIPath + obj.Contactid, obj, HttpContext.Session.GetString("JWToken"));
+                    await _contactRepo.UpdateAsync(SD.ContactAPIPath + obj.Contacts.Contactid, obj.Contacts, HttpContext.Session.GetString("JWToken"));
                 }
                 return RedirectToAction(nameof(Index));
             }
