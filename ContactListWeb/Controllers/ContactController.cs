@@ -107,7 +107,19 @@ namespace ContactListWeb.Controllers
         /// <returns></returns>
         public async Task<IActionResult> GetAllContacts()
         {
-            return Json(new { data = await _contactRepo.GetAllAsync(SD.ContactAPIPath, HttpContext.Session.GetString("JWToken")) });
+            IEnumerable<ContactGroups> npList = await _contactGroups.GetAllAsync(SD.ContactGroupAPIPath, HttpContext.Session.GetString("JWToken"));
+            IEnumerable<Contacts> nList = await _contactRepo.GetAllAsync(SD.ContactAPIPath, HttpContext.Session.GetString("JWToken"));
+
+            return Json
+                (new { data =
+                (from np in npList
+                 join n in nList on np.Groupid equals n.Groupid
+                select new { np.GroupName, n.FirstName, n.LastName, n.Phone, n.Contactid,n.Address }
+                )
+                });
+                       
+
+           // return Json(new { data = await _contactRepo.GetAllAsync(SD.ContactAPIPath, HttpContext.Session.GetString("JWToken")) });
         }
 
         [HttpDelete]

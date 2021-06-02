@@ -64,10 +64,12 @@ namespace ContactListAPI
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                
             })
             .AddJwtBearer(x => {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
+                
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
@@ -78,50 +80,6 @@ namespace ContactListAPI
             });
 
 
-            //services.AddSwaggerGen(options=> {
-            //    options.SwaggerDoc("ParkyOpenAPISpec",
-            //        new Microsoft.OpenApi.Models.OpenApiInfo()
-            //        {
-            //            Title = "Parky API",
-            //            Version = "1",
-            //            Description="Udemy Parky API NP",
-            //            Contact = new Microsoft.OpenApi.Models.OpenApiContact()
-            //            {
-            //                Email = "bhrugen.udemy@gmail.com",
-            //                Name = "Bhrugen Patel",
-            //                Url = new Uri("https://wwww.bhrugen.com")
-            //            },
-            //            License = new Microsoft.OpenApi.Models.OpenApiLicense()
-            //            {
-            //                Name = "MIT License",
-            //                Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
-            //            }
-
-            //        });
-
-            //    //options.SwaggerDoc("ParkyOpenAPISpecTrails",
-            //    //   new Microsoft.OpenApi.Models.OpenApiInfo()
-            //    //   {
-            //    //       Title = "Parky API Trails",
-            //    //       Version = "1",
-            //    //       Description = "Udemy Parky API Trails",
-            //    //       Contact = new Microsoft.OpenApi.Models.OpenApiContact()
-            //    //       {
-            //    //           Email = "bhrugen.udemy@gmail.com",
-            //    //           Name = "Bhrugen Patel",
-            //    //           Url = new Uri("https://wwww.bhrugen.com")
-            //    //       },
-            //    //       License = new Microsoft.OpenApi.Models.OpenApiLicense()
-            //    //       {
-            //    //           Name = "MIT License",
-            //    //           Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
-            //    //       }
-
-            //    //   });
-            //    var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            //    var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
-            //    options.IncludeXmlComments(cmlCommentsFullPath);
-            //});
             services.AddControllers();
         }
 
@@ -141,12 +99,7 @@ namespace ContactListAPI
                         desc.GroupName.ToUpperInvariant());
                 options.RoutePrefix = "";
             });
-
-            //app.UseSwaggerUI(options=> {
-            //    options.SwaggerEndpoint("/swagger/ParkyOpenAPISpec/swagger.json", "Parky API");
-            //    //options.SwaggerEndpoint("/swagger/ParkyOpenAPISpecTrails/swagger.json", "Parky API Trails");
-            //    options.RoutePrefix = "";
-            //});
+           
             app.UseRouting();
             app.UseCors(x => x
               .AllowAnyOrigin()

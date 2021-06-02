@@ -7,32 +7,27 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url": "/contact/GetAllContacts",
+            "url": "/contactgroup/GetAllGroups",
             "type": "GET",
             "datatype": "json"
         },
         "columns": [
-           
+
             {
-                "data": "contactid",
+                "data": "groupid",
                 "render": function (data) {
                     return `<div class="text-center">
-                                <a href="/contact/Upsert/${data}" class='btn btn-success text-white'
+                                <a href="/contactgroup/Upsert/${data}" class='btn btn-success text-white'
                                     style='cursor:pointer;'> <i class='far fa-edit'></i></a>
                                     &nbsp;
-                                <a onclick=Delete("/contact/Delete/${data}") class='btn btn-danger text-white'
+                                <a onclick=Delete("/contactgroup/Delete/${data}") class='btn btn-danger text-white'
                                     style='cursor:pointer;'> <i class='far fa-trash-alt'></i></a>
                                 </div>
                             `;
-                }, "width": "20%"
+                }, "width": "30%"
             },
-
-            { "data": "firstName", "width": "15%" },
-            { "data": "lastName", "width": "15%" },
-            { "data": "phone", "width": "10%" },
-            { "data": "address", "width": "20%" },
-            { "data": "groupName", "width": "20%" }
-
+            { "data": "groupName", "width": "70%" }
+           
         ]
     });
 }
