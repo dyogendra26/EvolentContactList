@@ -1,4 +1,4 @@
-﻿@model ContactListWeb.Models.Contacts
+﻿@model ContactListWeb.Models.ViewModel.ContactVM
 
 @{
    var title = "Add Contact";
@@ -9,9 +9,9 @@
 
     <div class="row px-2 mx-2 backgroundWhite border">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        @if (Model.Contactid != 0)
+        @if (Model.Contacts.Contactid != 0)
         {
-            <input type="hidden" asp-for="Contactid" />
+            <input type="hidden" asp-for="Contacts.Contactid" />
             title = "Edit Contact";
         }
         <div class="col-12 p-3">
@@ -20,54 +20,65 @@
         <div class="col-8">
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="FirstName"></label>
+                    <label asp-for="Contacts.FirstName"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="FirstName" class="form-control" />
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                    <input asp-for="Contacts.FirstName" class="form-control" />
+                    <span asp-validation-for="Contacts.FirstName" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="LastName"></label>
+                    <label asp-for="Contacts.LastName"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" class="text-danger"></span>
+                    <input asp-for="Contacts.LastName" class="form-control" />
+                    <span asp-validation-for="Contacts.LastName" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Picture"></label>
+                    Contact Group
                 </div>
                 <div class="col-8">
-                    <input type="file" asp-for="Picture" id="projectImage" name="files" multiple class="form-control" />
+                    @Html.DropDownListFor(m => m.Contacts.Groupid,
+                   Model.ContactGroup, "-Please select a Group-", new { @class = "form-control" })
+                    <span asp-validation-for="Contacts.Groupid" class="text-danger"></span>
 
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Phone"></label>
+                    <label asp-for="Contacts.Picture"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Phone" class="form-control" />
-                    <span asp-validation-for="Phone" class="text-danger"></span>
+                    <input type="file" asp-for="Contacts.Picture" id="projectImage" name="files" multiple class="form-control" />
+
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Address"></label>
+                    <label asp-for="Contacts.Phone"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Address" class="form-control" />
-                    <span asp-validation-for="Address" class="text-danger"></span>
+                    <input asp-for="Contacts.Phone" class="form-control" />
+                    <span asp-validation-for="Contacts.Phone" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Contacts.Address"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Contacts.Address" class="form-control" />
+                    <span asp-validation-for="Contacts.Address" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-4 offset-4">
                     <button type="submit" class="btn btn-primary form-control">
-                        @(Model.Contactid != 0 ? "Update" : "Create")
+                        @(Model.Contacts.Contactid != 0 ? "Update" : "Create")
                     </button>
                 </div>
                 <div class="col-4">
@@ -76,9 +87,9 @@
             </div>
         </div>
         <div class="col-4 text-right" style="width:250px;">
-            @if (Model.Picture != null)
+            @if (Model.Contacts.Picture != null)
             {
-                var base64 = Convert.ToBase64String(Model.Picture);
+                var base64 = Convert.ToBase64String(Model.Contacts.Picture);
                 var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
                 <img src="@imgsrc" width="100%" />
             }

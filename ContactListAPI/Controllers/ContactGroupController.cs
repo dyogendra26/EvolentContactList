@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ContactListAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/ContactGroup")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class ContactGroupController : ControllerBase
@@ -46,9 +46,9 @@ namespace ContactListAPI.Controllers
         }
 
         /// <summary>
-        /// Get individual national park
+        /// Get individual Contact park
         /// </summary>
-        /// <param name="ContactGroupsId"> The Id of the national Park </param>
+        /// <param name="ContactGroupsId"> The Id of the Contact Group </param>
         /// <returns></returns>
         [HttpGet("{ContactGroupsId:int}", Name = "GetContactGroups")]
         [ProducesResponseType(200, Type = typeof(ContactGroupsDto))]
@@ -87,7 +87,7 @@ namespace ContactListAPI.Controllers
             }
             if (_contactGroupRepository.ContactGroupsExists(ContactGroupsDto.GroupName))
             {
-                ModelState.AddModelError("", "National Park Exists!");
+                ModelState.AddModelError("", "Contact Group Exists!");
                 return StatusCode(404, ModelState);
             }
             var ContactGroupsObj = _mapper.Map<ContactGroups>(ContactGroupsDto);

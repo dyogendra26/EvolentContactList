@@ -108,6 +108,7 @@ namespace ContactListAPI.Controllers
                 return StatusCode(500, ModelState);
             }
             return CreatedAtRoute("GetContact", new { Contactid = contactObj.Contactid }, contactObj);
+           
         }
 
         [HttpPatch("{Contactid:int}", Name = "UpdateContact")]
