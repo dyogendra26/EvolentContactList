@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ContactListAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/ContactGroup")]
+    [ApiVersion("2.0")]
     [ApiController]
-    
     public class ContactGroupV2Controller : Controller
     {
         private readonly IContactGroupRepository _contactGroupRepository;
@@ -45,6 +45,6 @@ namespace ContactListAPI.Controllers
             return Ok(objDto);
         }
 
-       
+
     }
 }

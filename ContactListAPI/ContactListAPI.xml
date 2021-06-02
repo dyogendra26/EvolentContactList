@@ -25,9 +25,9 @@
         </member>
         <member name="M:ContactListAPI.Controllers.ContactGroupController.GetContactGroups(System.Int32)">
             <summary>
-            Get individual national park
+            Get individual Contact park
             </summary>
-            <param name="ContactGroupsId"> The Id of the national Park </param>
+            <param name="ContactGroupsId"> The Id of the Contact Group </param>
             <returns></returns>
         </member>
         <member name="M:ContactListAPI.Controllers.ContactGroupV2Controller.GetContactGroups">

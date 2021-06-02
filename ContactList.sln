@@ -4,11 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactListAPI", "ContactListAPI\ContactListAPI.csproj", "{512814D0-6C33-40F0-9773-D337054D802B}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E8D6D36A-75A9-467F-8850-4DBD05187177} = {E8D6D36A-75A9-467F-8850-4DBD05187177}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactListWeb", "ContactListWeb\ContactListWeb.csproj", "{E8D6D36A-75A9-467F-8850-4DBD05187177}"
+	ProjectSection(ProjectDependencies) = postProject
+		{512814D0-6C33-40F0-9773-D337054D802B} = {512814D0-6C33-40F0-9773-D337054D802B}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
