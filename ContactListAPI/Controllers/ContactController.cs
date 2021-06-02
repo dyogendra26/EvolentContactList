@@ -44,6 +44,7 @@ namespace ContactListAPI.Controllers
             return Ok(objDto);
         }
 
+
         /// <summary>
         /// Get individual Contact
         /// </summary>
